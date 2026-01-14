@@ -121,12 +121,12 @@ export const BlogView = () => {
             By {blog.createdBy?.name || "Unknown"}
           </p>
     
-          <div className="text-gray-800 leading-relaxed whitespace-pre-line">
+          <div className="text-gray-800 bg-gray-200/40 p-10 rounded-xl shadow-md text-xl  leading-relaxed whitespace-pre-line">
             {blog.content}
           </div>
           <button
   onClick={toggleLike}
-  className={`mt-4 px-4 py-1 rounded border ${
+  className={`mt-4 px-4 py-1 rounded cursor-pointer ${
     liked
       ? "bg-red-500 text-white border-red-500"
       : "hover:bg-gray-100"
@@ -137,7 +137,7 @@ export const BlogView = () => {
 
 {/* Comments Section */}
 <div className="mt-10">
-  <h2 className="text-xl font-semibold mb-4">Comments</h2>
+  <h2 className="text-xl font-semibold  mb-4">Comments</h2>
 
   {/* Add Comment */}
   <form onSubmit={handleAddComment} className="mb-6">
@@ -145,13 +145,13 @@ export const BlogView = () => {
       value={commentText}
       onChange={(e) => setCommentText(e.target.value)}
       placeholder="Write a comment..."
-      className="w-full border rounded p-2 mb-2 min-h-20"
+      className="w-full border rounded-xs p-2 mb-2 min-h-20"
     />
 
     <button
       type="submit"
       disabled={commentLoading}
-      className="bg-orange-500 text-white px-4 py-1 rounded hover:bg-orange-600 disabled:opacity-50"
+      className="bg-orange-500 text-white px-4 py-1 rounded-xs cursor-pointer hover:bg-orange-600 disabled:opacity-50"
     >
       {commentLoading ? "Posting..." : "Post Comment"}
     </button>
@@ -163,9 +163,9 @@ export const BlogView = () => {
   ) : (
     <ul className="space-y-4">
       {comments.map((comment) => (
-        <li key={comment._id} className="border rounded p-3">
+        <li key={comment._id}className="bg-gray-300 rounded p-3">
           <p className="text-sm text-gray-600 mb-1">
-            {comment.userId?.name || "User"}
+            {comment.userId?.name || "User"}  {comment.createdAt} 
           </p>
           <p className="text-gray-800">{comment.text}</p>
         </li>

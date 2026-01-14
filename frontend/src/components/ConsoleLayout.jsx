@@ -1,10 +1,21 @@
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
+import axios from "../api/axios";
 
 const ConsoleLayout = () => {
-  const { user } = useAuth();
+  const { user, setUser} = useAuth();
   const navigate = useNavigate();
   const { orgId } = useParams();
+
+  const handleLogout = async () => {
+    try {
+      await axios.post("/auth/logout");
+      setUser(null);
+      navigate("/login");
+    } catch {
+      alert("Logout failed");
+    }
+  };
 
   const currentOrg = user.organisations.find(
     (o) => o.orgId === orgId
@@ -17,7 +28,7 @@ const ConsoleLayout = () => {
       {/* Sidebar */}
       <aside className="w-64 bg-gray-900 text-white flex flex-col">
         <div className="px-6 py-4 text-xl font-bold border-b border-gray-700">
-          BlogSaaS
+        Blog<span className="text-orange-500">SaaS</span>
         </div>
 
         <nav className="flex-1 px-4 py-6 space-y-2">
@@ -62,6 +73,13 @@ const ConsoleLayout = () => {
           <p className="text-gray-400">
             {currentOrg?.role || "No role"}
           </p>
+        </div>
+
+        <div>
+            <button   onClick={handleLogout}
+  className="text-sm text-red-400 hover:text-red-300 mt-4 border m-10 px-4 py-1 ">
+                Logout
+            </button>
         </div>
       </aside>
 

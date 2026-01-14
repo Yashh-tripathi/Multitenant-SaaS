@@ -1,15 +1,18 @@
 import { Rocket } from 'lucide-react'
 import React, { useState } from 'react'
 import { useAuth } from '../context/AuthContext.jsx'
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import axios from "../api/axios.js";
 
 export const Login = () => {
+    const location = useLocation();
+    const expired = new URLSearchParams(location.search).get("expired");
     const {user, setUser, loading } = useAuth();
     const navigate = useNavigate(); 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+
 
     if(loading){
         return null;
@@ -34,12 +37,21 @@ export const Login = () => {
             setError(err.response?.data?.message || "Invalid email or password")
         }
     }
+
+   
+      
   return (
+    
     <div className='min-h-screen w-full '>
             <div><h1 className='w-full text-center mt-20 text-xl font-medium'>Blog<span className='text-orange-500 font-bold text-3xl'>SaaS</span></h1></div>
         <div className='flex flex-col min-h-screen w-full justify-center items-center pb-90  mt-10'>
             <div className='flex '>
                 <div className='flex flex-col '>
+                {expired && (
+                    <p className="text-red-500 text-sm mb-3 text-center">
+                        Session expired. Please login again.
+                    </p>
+                    )}
                     <form action="" onSubmit={handleSubmit} className='flex flex-col px-20'>
                         <h1 className='font-bold text-center mb-2'>Login</h1>
                         <label className='text-sm font-bold text-black'>Email address <p className='text-[12px] font-normal text-black/60'>write the verified email with<br/> @gmail.com </p></label>

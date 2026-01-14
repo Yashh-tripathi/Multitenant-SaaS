@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext.jsx"
 import axios from "../api/axios.js";
 import { useNavigate } from "react-router-dom";
+import { ClipboardCheck, Copy } from "lucide-react";
 
 
 export const IAM = () => {
@@ -14,6 +15,20 @@ export const IAM = () => {
     const [joinStatus, setJoinStatus] = useState("");
     const [pendingRequests, setPendingRequest] = useState([]);
     const [orgDetails, setOrgDetails] = useState([]);
+    const [copiedCode, setCopiedCode] = useState(null);
+
+
+    const handleCopy = async (code) => {
+        try {
+          await navigator.clipboard.writeText(code);
+          setCopiedCode(code);
+      
+          // reset after 2 seconds
+          setTimeout(() => setCopiedCode(null), 2000);
+        } catch (err) {
+          alert("Failed to copy");
+        }
+      };
 
     const adminOrgs = user.organisations.filter(
         o => o.role === "admin" && o.status === "approved"
@@ -128,13 +143,24 @@ export const IAM = () => {
                 ))}
               </ul>
             )}
-            {orgDetails.map(org => (
-            <div key={org._id}>
-            <p>Organisation name : <b>{org.orgId.name}</b> , Join Code: <b>{org.orgId.joinCode}</b></p>
-            <p></p>
+          </div>
+           <div className="bg-white p-6 rounded shadow mb-8">
+           {orgDetails.map(org => (
+            <div key={org._id} className="border mt-1 flex  px-2 py-1 justify-between">
+            <p>Organisation name : <b>{org.orgId.name}</b> </p>
+            <p>Join Code: <b>{org.orgId.joinCode}</b></p>
+            <button
+      onClick={(e) => {
+        e.stopPropagation();
+        handleCopy(org.orgId.joinCode);
+      }}
+      className="text-xs px-2 py-0.5  rounded hover:bg-gray-100"
+    >
+      {copiedCode === org.orgId.joinCode ? <ClipboardCheck/> : <Copy/>}
+    </button>
             </div>
             ))}
-          </div>
+           </div>
           
     
           {/* Create Organisation */}
