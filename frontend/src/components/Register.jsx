@@ -1,0 +1,41 @@
+import React from 'react'
+import { Rocket } from 'lucide-react';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext.jsx';
+
+export const Register = () => {
+    const navigate = useNavigate();
+    const {user, loading} = useAuth();
+    if(loading) return null;
+    if(user) {
+        return <Navigate to="/console" />
+    }
+  return (
+    <div className='min-h-screen w-full '>
+            <img src="/background.png" alt="" />
+            <div><h1 className='w-full text-center mt-20 text-xl font-medium'>Blog<span className='text-orange-500 font-bold text-3xl'>SaaS</span></h1></div>
+        <div className='flex flex-col min-h-screen w-full justify-center items-center pb-90 '>
+            <div className='flex '>
+                <div className='flex flex-col mr-10 mt-10'>
+                    <h1 className='font-bold mb-5 '>Try BlogSaaS for multitennant model</h1>
+                    <p>If you already have account <br/> please <span onClick={() => navigate("/login")} className='text-blue-600 cursor-pointer hover:underline'>login</span> </p>
+                    <Rocket className="w-60 h-20 mt-9" />
+                </div>
+                <div  className='divider border border-gray-300 '></div>
+                <div className='flex flex-col '>
+                    <form action="" className='flex flex-col px-20'>
+                        <label className='text-sm font-bold text-black' htmlFor="name">Name <p className='text-[12px] font-normal text-black/60'>write a name for your account</p></label>
+                        <input type="text" className='border rounded-[3px] outline-none px-2 py-0.5 mb-2'   />
+                        <label className='text-sm font-bold text-black' htmlFor="email">Email address <p className='text-[12px] font-normal text-black/60'>write the verified email with<br/> @gmail.com </p></label>
+                        <input className='border rounded-[3px] outline-none px-2 py-0.5 mb-2' type="email"   />
+                        <label className='text-sm font-bold text-black' htmlFor="password">Password <p className='text-[12px] font-normal text-black/60'>The password must be of<br/> atleast 6 characters</p></label>
+                        <input className='border rounded-[3px] outline-none px-2 py-0.5 mb-2' type="password"  />
+                        <button className='bg-[#FF9900] font-bold mt-3 py-1 px-5 hover:bg-[#cc7a00] cursor-pointer rounded-[3px]'>register user</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+  )
+}
+
