@@ -1,5 +1,7 @@
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx"
+import { ServiceCard } from "./ServiceCard.jsx";
+import { Navbar } from "./Navbar.jsx";
 
 export const Home = () => {
     const { user, loading } = useAuth();
@@ -11,32 +13,7 @@ export const Home = () => {
 
     return (<div className="min-h-screen w-full">
     {/* Navbarbg-[#232B37] */}
-    <nav className="flex justify-between items-center  px-10 py-4  shadow-md">
-      <h1 className="text-xl font-bold">
-        Blog<span className="text-orange-500">SaaS</span>
-      </h1>
-      <div className="space-x-4">
-        <Link to="/about" className="text-sm font-medium hover:text-blue-500 transition-all duration-100 mr-10">About</Link>
-        <Link to="/contact" className="text-sm font-medium hover:text-blue-500 transition-all duration-100 mr-10">Contact us</Link>
-        <Link to="/login" className="text-sm font-medium transition-all duration-200 hover:bg-black/30 px-2 py-2">
-          Sign In
-        </Link>
-        <Link
-          to="/register"
-          className=" px-8 py-4 
-  bg-slate-900 
-  text-white 
-  rounded-full 
-  font-semibold
-  transition-all 
-  duration-300
-  hover:shadow-[0_0_20px_rgba(99,102,241,0.8),0_0_40px_rgba(99,102,241,0.4)]"
-        >
-          Sign Up
-        </Link>
-      </div>
-    </nav>
-
+    <Navbar/>
     {/* Hero Section */}
     <div className="h-64 w-full top-0 flex flex-col items-center text-center bg-linear-to-br pt-10 from-blue-900 to-black/70 px-6">
       <h2 className="text-4xl font-bold mb-4 px-4 py-2  bg-linear-to-r from-yellow-500 to-purple-500">
@@ -56,6 +33,11 @@ export const Home = () => {
         Get Started
       </Link>
     </div>
+      <Link to="/about" className="flex justify-around"> 
+        <ServiceCard text1="Create Blog" text="Know who can create blog!" text2="Only the admin can create blogs and post. Once created the user who creates it gets the access as admin."   />
+        <ServiceCard text1="View Organisational Blogs" text="who has the authority?" text2="The blogs can be seen by anyone of the organisation but can be liked and reviewed only by member."   />
+        <ServiceCard text1="Create organisation or request access to admin" text="what access?" text2="The user need to request access to the admin to become the member of organisation to access the blogs."   />
+      </Link>
   </div>
 );
 

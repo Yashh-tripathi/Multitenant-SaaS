@@ -13,6 +13,7 @@ import Blog from './components/Blog.jsx'
 import { BlogView } from './components/BlogView.jsx'
 import ConsoleLayout from './components/ConsoleLayout.jsx'
 import PendingRequests from './components/PendingRequests.jsx'
+import { About } from './components/About.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -26,6 +27,7 @@ function App() {
         <Route path='/' element={<Home/>} />
         <Route path='/register' element={<Register/>}  />
         <Route path='/login' element={<Login/>}  />
+        <Route path='/about' element={<About/>} />
 
         {/* Protected Routes  */}
 

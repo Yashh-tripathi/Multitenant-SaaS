@@ -146,7 +146,7 @@ export const IAM = () => {
           </div>
            <div className="bg-white p-6 rounded shadow mb-8">
            {orgDetails.map(org => (
-            <div key={org._id} className="border mt-1 flex  px-2 py-1 justify-between">
+            <div key={org._id} className=" mt-1  rounded-md shadow-sm flex  px-2 py-1 justify-between">
             <p>Organisation name : <b>{org.orgId.name}</b> </p>
             <p>Join Code: <b>{org.orgId.joinCode}</b></p>
             <button

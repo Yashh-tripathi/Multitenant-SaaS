@@ -1,6 +1,7 @@
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import axios from "../api/axios";
+import { Logout } from "./Logout.jsx";
 
 const ConsoleLayout = () => {
   const { user, setUser} = useAuth();
@@ -76,10 +77,7 @@ const ConsoleLayout = () => {
         </div>
 
         <div>
-            <button   onClick={handleLogout}
-  className="text-sm text-red-400 hover:text-red-300 mt-4 border m-10 px-4 py-1 ">
-                Logout
-            </button>
+            <Logout onclick={handleLogout} />
         </div>
       </aside>
 
